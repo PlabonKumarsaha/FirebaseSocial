@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrationActivity"
+    android:padding="20dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:text="Register"
+        android:textColor="#000"
+        android:textSize="50sp"/>
+
+
+
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="38dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textSize="30sp"
+        />
+
+    <EditText
+
+
+        android:id="@+id/emailPassText"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_below="@id/emailEditText"
+        android:layout_centerVertical="true"
+
+        />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textSize="20dp"
+        android:layout_below="@id/emailPassText"
+        android:layout_centerHorizontal="true"
+        />
+<!-- click to go login activity -->
+    <TextView
+        android:id="@+id/have_accountTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_register"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="55dp"
+        android:textSize="20sp"
+        android:text="already have an account?Login"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center" />
+
+</RelativeLayout>
