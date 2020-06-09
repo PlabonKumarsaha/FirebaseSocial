@@ -19,15 +19,31 @@
 
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+            android:id="@+id/avatarIV"
             android:src="@drawable/ic_face_default2"
             android:scaleType="fitXY"
             android:layout_width="70dp"
             android:layout_height="70dp"/>
 
         <LinearLayout
+            android:paddingLeft="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Person name"
+            android:textSize="18sp"
+            android:textColor="@color/design_default_color_primary_dark"/>
+
+            <TextView
+                android:id="@+id/emailTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Person Email"/>
 
         </LinearLayout>
 

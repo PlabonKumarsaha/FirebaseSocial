@@ -53,6 +53,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
 
     implementation 'com.github.mohammadatif:CircularImageView:1.0.0'
+    //circular image used
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 
