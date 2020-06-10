@@ -21,6 +21,9 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -585,5 +588,42 @@ public class ProfileFragment extends Fragment {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
         startActivityForResult(cameraIntent,IMAGE_PICK_CAMERA_REQUEST_CODE);
+    }
+
+    public void checkUserStatus(){
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user != null){
+            //user is signed in..stay here
+
+            //set email of logged in user
+            //  ProfileTv.setText(user.getEmail());
+
+        } else{
+
+            startActivity(new Intent(getActivity(),MainActivity.class));
+            getActivity().finish();
+        }
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_main,menu);
+
+
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        if(id == R.id.action_logout){
+            firebaseAuth.signOut();
+            checkUserStatus();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

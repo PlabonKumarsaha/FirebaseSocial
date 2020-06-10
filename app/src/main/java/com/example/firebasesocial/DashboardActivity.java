@@ -110,7 +110,6 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         }
 
-
     }
 
     @Override
@@ -129,25 +128,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     //inflate option menu
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
-        if(id == R.id.action_logout){
-            firebaseAuth.signOut();
-            checkUserStatus();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     /*
     1.make profile activity launcher
