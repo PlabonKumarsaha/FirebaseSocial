@@ -608,6 +608,14 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true); //to show the menu option in fragment
+        super.onCreate(savedInstanceState);
+
+    }
+
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         inflater.inflate(R.menu.menu_main,menu);
