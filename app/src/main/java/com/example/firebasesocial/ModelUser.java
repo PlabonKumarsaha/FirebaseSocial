@@ -4,17 +4,8 @@ public class ModelUser {
 
     //same name as firebase instances are given
 
-    String Name,email,phone,image,cover,uid;
 
-    public ModelUser(String name, String email, String phone, String image, String cover, String uid) {
-        this.Name = name;
-        this.email = email;
-        this.phone = phone;
-        this.image = image;
-        this.cover = cover;
-        this.uid = uid;
-    }
-
+    private String name,email,search,phone,image,cover,uid;
 
 
 
@@ -22,13 +13,22 @@ public class ModelUser {
 
     }
 
+    public ModelUser(String name, String email, String search, String phone, String image, String cover, String uid) {
+        this.name = name;
+        this.email = email;
+        this.search = search;
+        this.phone = phone;
+        this.image = image;
+        this.cover = cover;
+        this.uid = uid;
+    }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getEmail() {
@@ -37,6 +37,14 @@ public class ModelUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 
     public String getPhone() {
@@ -70,6 +78,11 @@ public class ModelUser {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+
+
+
+
 
 
 

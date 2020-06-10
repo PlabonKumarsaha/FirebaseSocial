@@ -67,6 +67,7 @@ public class UsersFragment extends Fragment {
 
         //get path of database named "users"
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference("User");
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
