@@ -85,8 +85,8 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
             super(itemView);
 
             mAvatarIV = itemView.findViewById(R.id.avatarIV);
-            mNameTV = itemView.findViewById(R.id.nameTV);
-            mEmailTV = itemView.findViewById(R.id.emailTV);
+            mNameTV = itemView.findViewById(R.id.nameTVU);
+            mEmailTV = itemView.findViewById(R.id.emailTVU);
 
         }
     }
