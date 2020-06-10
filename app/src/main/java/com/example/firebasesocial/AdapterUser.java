@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,8 +51,9 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
         holder.mEmailTV.setText(userEmail);
         try {
 
-            Picasso.get().load(userImage)
-                    .placeholder(R.drawable.ic_face_default2)
+
+                  Picasso.get().load(userImage)
+                          .placeholder(R.drawable.ic_face_default2)
                     .into(holder.mAvatarIV);
         } catch (Exception e){
 
@@ -73,7 +75,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
 
     //extend the view holder
 
-    class MyHolder extends RecyclerView.ViewHolder{
+   public class MyHolder extends RecyclerView.ViewHolder{
 
         ImageView mAvatarIV;
         TextView mNameTV,mEmailTV;

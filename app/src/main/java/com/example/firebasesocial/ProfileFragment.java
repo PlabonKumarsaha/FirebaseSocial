@@ -161,7 +161,7 @@ public class ProfileFragment extends Fragment {
                 //check until we get required data
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //get data
-                    String name = "" + ds.child("Name").getValue();
+                    String name = "" + ds.child("name").getValue();
                     String email = "" + ds.child("email").getValue();
                     String phone = "" + ds.child("phone").getValue();
                     String image = "" + ds.child("image").getValue();
@@ -270,7 +270,7 @@ public class ProfileFragment extends Fragment {
                 } else if (i == 2) {
 
                     pd.setMessage("Updating Name");
-                    showNamePhoneUpdateDialog("Name");
+                    showNamePhoneUpdateDialog("name");
 
                 } else if (i == 3) {
 

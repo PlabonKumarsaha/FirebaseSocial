@@ -4,8 +4,10 @@ public class ModelUser {
 
     //same name as firebase instances are given
 
+    String Name,email,phone,image,cover,uid;
+
     public ModelUser(String name, String email, String phone, String image, String cover, String uid) {
-        Name = name;
+        this.Name = name;
         this.email = email;
         this.phone = phone;
         this.image = image;
@@ -13,7 +15,7 @@ public class ModelUser {
         this.uid = uid;
     }
 
-    String Name,email,phone,image,cover,uid;
+
 
 
     public ModelUser() {
