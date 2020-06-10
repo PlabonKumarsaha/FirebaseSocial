@@ -52,6 +52,7 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         //init
         firebaseAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
