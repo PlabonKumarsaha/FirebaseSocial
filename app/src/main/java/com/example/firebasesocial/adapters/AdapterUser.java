@@ -69,6 +69,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
             public void onClick(View view) {
                // Toast.makeText(context,""+userEmail,Toast.LENGTH_SHORT).show();
 
+                //send this when a user wants to send message to a particular user
                 Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("hisUID",hisUID);
                 context.startActivity(intent);
