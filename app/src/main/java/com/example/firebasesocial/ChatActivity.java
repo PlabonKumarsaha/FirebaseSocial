@@ -7,17 +7,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -56,8 +66,71 @@ public class ChatActivity extends AppCompatActivity {
         hisUID = intent.getStringExtra("hisUID");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        userdatabaseReference = firebaseDatabase.getReference();
+        userdatabaseReference = firebaseDatabase.getReference("User");
 
+        //search user to get user info
+        Query userQuery = userdatabaseReference.orderByChild("uid").equalTo(hisUID);
+        //get USername and picture
+        userQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //check until user infro is receieved
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String name = ds.child("name").getValue().toString();
+                    String image = ds.child("image").getValue().toString();
+
+                    nameTV.setText(name);
+                    try{
+
+                        Picasso.get().load(image).placeholder(R.drawable.ic_deafult_face).into(profileIV);
+
+                    } catch (Exception e){
+
+                        Picasso.get().load(R.drawable.ic_deafult_face).into(profileIV);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        sendImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //get text from edit text
+                String message = msgET.getText().toString().trim();
+                if(TextUtils.isEmpty(message)){
+                    //text empty
+
+                    Toast.makeText(ChatActivity.this,"message is empty",Toast.LENGTH_SHORT).show();
+                } else{
+
+                    sendMessage(message);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStart() {
+
+        checkUserStatus();
+        super.onStart();
+    }
+
+    private void sendMessage(String message) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        HashMap<String,Object>hashMap = new HashMap<>();
+        hashMap.put("sender",myUID);
+        hashMap.put("receiver",hisUID);
+        hashMap.put("message",message);
+        dbRef.child("Chats").push().setValue(hashMap);
+        msgET.setText("");
     }
 
 
@@ -99,4 +172,7 @@ public class ChatActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
