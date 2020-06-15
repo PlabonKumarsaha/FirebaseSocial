@@ -12,14 +12,14 @@
         android:orientation="horizontal">
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
-            android:id="@+id/rowchatleftprofileIvv"
+            android:id="@+id/profileIvv"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_default_img"
             app:c_border_color="@null" />
 
         <TextView
-            android:id="@+id/rowchatlefmessageTvv"
+            android:id="@+id/messageTvv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -30,7 +30,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/rowchatlefttimeTv"
+            android:id="@+id/timeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="02/03/2020 5:59PM"
@@ -39,7 +39,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/rowchatleftisSeenTv"
+        android:id="@+id/isSeenTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
