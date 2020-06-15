@@ -74,12 +74,12 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:inputType="textCapSentences|textMultiLine"
-            android:background="null"
+            android:background="#ffffff"
             />
 
         <ImageButton
             android:id="@+id/sentBTn"
-            android:background="null"
+            android:background="#ffffff"
             android:src="@drawable/ic_send"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
