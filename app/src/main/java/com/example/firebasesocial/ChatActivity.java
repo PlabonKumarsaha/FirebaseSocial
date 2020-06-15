@@ -100,6 +100,8 @@ public class ChatActivity extends AppCompatActivity {
                     String name = ds.child("name").getValue().toString();
                     hisImage = ds.child("image").getValue().toString();
 
+                    String onlineSatus = ds.child("onlineStatus").getValue().toString();
+
                     nameTV.setText(name);
                     try{
 
@@ -199,6 +201,9 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
 
+        //get the time stamp to show the last active time
+        String timestamp =String.valueOf(System.currentTimeMillis());
+        checkOnlineStatus(timestamp);
         userReferenceForSeen.removeEventListener(seenListener);
         super.onPause();
     }
@@ -207,7 +212,17 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStart() {
 
         checkUserStatus();
+        //set online
+        checkOnlineStatus("Online");
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+
+        //set online
+        checkOnlineStatus("Online");
+        super.onResume();
     }
 
     private void sendMessage(String message) {
@@ -242,6 +257,16 @@ public class ChatActivity extends AppCompatActivity {
             finish();
         }
 
+    }
+
+
+    public void checkOnlineStatus(String status){
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(myUID);
+        HashMap<String,Object>hashMap = new HashMap<>();
+        hashMap.put("onlineStatus",status);
+        //update the status of current user
+        dbRef.updateChildren(hashMap);
     }
 
 
