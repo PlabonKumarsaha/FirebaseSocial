@@ -1,6 +1,9 @@
 package com.example.firebasesocial.adapters;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.ULocale;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firebasesocial.ChatActivity;
 import com.example.firebasesocial.R;
 import com.example.firebasesocial.models.ModelChat;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +57,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
 
@@ -61,14 +67,19 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         //convert the time
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
        // calendar.setTimeInMillis(Long.parseLong(timeStamp));
+        //Date date = new Date(ULocale.getTime());
+       // String dateTime = DateFormat.getDateInstance().format(date).toString();
         String dateTime = java.text.DateFormat.getDateTimeInstance().format(new Date());
 
         holder.messageTv.setText(message);
-        holder.timeTV.setText(dateTime);
+       holder.timeTV.setText(dateTime);
         try{
             Picasso.get().load(imageUrl).into(holder.profileImage);
         } catch (Exception e){
 
+
+           // SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss 'GMT'Z yyyy");
+           // System.out.println(dateFormat.format(cal.getTime()));
         }
 
         //set sent or delivered sattus

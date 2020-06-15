@@ -31,7 +31,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -102,7 +104,24 @@ public class ChatActivity extends AppCompatActivity {
 
                     String onlineSatus = ds.child("onlineStatus").getValue().toString();
 
+                    if(onlineSatus.equals("online")){
+
+                        //show that the other user is online
+                        userStatusTV.setText("online");
+                    }else{
+
+                        //show the last active time
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(Long.parseLong(onlineSatus));
+                        String dateTime = android.text.format.DateFormat.getDateFormat(getApplicationContext()).toString();
+                        userStatusTV.setText("Last seen at :" +dateTime);
+
+                    }
+
+
                     nameTV.setText(name);
+
                     try{
 
                         Picasso.get().load(hisImage).placeholder(R.drawable.ic_deafult_face).into(profileIV);
@@ -262,7 +281,7 @@ public class ChatActivity extends AppCompatActivity {
 
     public void checkOnlineStatus(String status){
 
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(myUID);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("User").child(myUID);
         HashMap<String,Object>hashMap = new HashMap<>();
         hashMap.put("onlineStatus",status);
         //update the status of current user
