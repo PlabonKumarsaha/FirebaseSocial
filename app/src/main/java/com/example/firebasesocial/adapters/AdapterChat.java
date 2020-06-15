@@ -60,7 +60,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         String timeStamp = chatList.get(position).getTimestrap();
         //convert the time
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
-        calendar.setTimeInMillis(Long.parseLong(timeStamp));
+       // calendar.setTimeInMillis(Long.parseLong(timeStamp));
         String dateTime = java.text.DateFormat.getDateTimeInstance().format(new Date());
 
         holder.messageTv.setText(message);
