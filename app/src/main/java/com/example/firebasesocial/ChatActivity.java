@@ -136,7 +136,33 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         readMessage();
+        seenMessage();
     }
+
+    private void seenMessage() {
+        userReferenceForSeen = FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = userReferenceForSeen.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ModelChat chat = ds.getValue(ModelChat.class);
+                    if (chat.getReceiver().equals(myUID) && chat.getSender().equals(hisUID)) {
+
+                        HashMap<String, Object> hasSeenHashmap = new HashMap<>();
+                        hasSeenHashmap.put("isSeen", true);
+                        ds.getRef().updateChildren(hasSeenHashmap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
     private void readMessage() {
 
@@ -146,14 +172,35 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chatList.clear();
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    ModelChat chat = ds.getValue(ModelChat.class);
+                    if(chat.getReceiver().equals(myUID) && chat.getSender().equals(hisUID) ||
+                            chat.getReceiver().equals(hisUID) && chat.getSender().equals(myUID)){
+                        chatList.add(chat);
+                    }
+
+                    //adapter
+                    adapterChat = new AdapterChat(ChatActivity.this,chatList,hisImage);
+                    adapterChat.notifyDataSetChanged();
+                    //set adapter to recylerview
+                    chat_recylerview.setAdapter(adapterChat);
+                }
 
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+
+        userReferenceForSeen.removeEventListener(seenListener);
+        super.onPause();
     }
 
     @Override

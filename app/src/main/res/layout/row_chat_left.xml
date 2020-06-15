@@ -44,6 +44,6 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:text="delivered"
-
+        android:visibility="gone"
         android:textAlignment="textEnd" />
 </LinearLayout>
