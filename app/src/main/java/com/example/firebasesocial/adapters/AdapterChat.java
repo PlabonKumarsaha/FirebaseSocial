@@ -116,7 +116,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         messageTv = itemView.findViewById(R.id.messageTvv);
         timeTV = itemView.findViewById(R.id.timeTv);
         issenTV = itemView.findViewById(R.id.isSeenTv);
-        
+
     }
 }
 

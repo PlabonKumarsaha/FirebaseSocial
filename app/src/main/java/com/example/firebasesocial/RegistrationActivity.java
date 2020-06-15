@@ -137,6 +137,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             hashmap.put("email",email);
                             hashmap.put("uid",uid);
                             hashmap.put("name",""); //will be added in user profile
+                            hashmap.put("onlineStatus","Online"); //will be added in user profile
                             hashmap.put("phone","");
                             hashmap.put("image","");
                             hashmap.put("cover","");
