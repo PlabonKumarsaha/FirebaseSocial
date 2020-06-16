@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -246,7 +247,10 @@ public class ChatActivity extends AppCompatActivity {
 
     private void sendMessage(String message) {
 
-        String timestamp = String.valueOf(System.currentTimeMillis());
+       // String timestamp = String.valueOf(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        String timestamp = formatter.format(date);
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object>hashMap = new HashMap<>();
         hashMap.put("sender",myUID);
