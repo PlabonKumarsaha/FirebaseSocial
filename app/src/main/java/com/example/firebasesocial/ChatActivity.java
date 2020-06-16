@@ -112,11 +112,14 @@ public class ChatActivity extends AppCompatActivity {
                     }else{
 
                         //show the last active time
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                        Date date = new Date();
+                        String timestamp = formatter.format(date);
 
-                        Calendar cal = Calendar.getInstance();
-                        cal.setTimeInMillis(Long.parseLong(onlineSatus));
-                        String dateTime = android.text.format.DateFormat.getDateFormat(getApplicationContext()).toString();
-                        userStatusTV.setText("Last seen at :" +dateTime);
+                       // Calendar cal = Calendar.getInstance();
+                      //  cal.setTimeInMillis(Long.parseLong(onlineSatus));
+                       // String dateTime = android.text.format.DateFormat.getDateFormat(getApplicationContext()).toString();
+                        userStatusTV.setText("Last seen at :" +timestamp);
 
                     }
 
@@ -222,7 +225,11 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
 
         //get the time stamp to show the last active time
-        String timestamp =String.valueOf(System.currentTimeMillis());
+        //String timestamp =String.valueOf(System.currentTimeMillis());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        String timestamp = formatter.format(date);
         checkOnlineStatus(timestamp);
         userReferenceForSeen.removeEventListener(seenListener);
         super.onPause();
