@@ -328,6 +328,7 @@ public class LoginActivity extends AppCompatActivity {
                                 hashmap.put("uid",uid);
                                 hashmap.put("name",""); //will be added in user profile
                                 hashmap.put("onlineStatus","Online"); //will be added in user profile
+                                hashmap.put("typingTo","noOne");
                                 hashmap.put("phone","");
                                 hashmap.put("image","");
                                 hashmap.put("cover","");

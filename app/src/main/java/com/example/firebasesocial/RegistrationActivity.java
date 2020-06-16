@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
     //firebase instance
     private FirebaseAuth mAuth;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +140,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             hashmap.put("uid",uid);
                             hashmap.put("name",""); //will be added in user profile
                             hashmap.put("onlineStatus","Online"); //will be added in user profile
+                            hashmap.put("typingTo","noOne");
                             hashmap.put("phone","");
                             hashmap.put("image","");
                             hashmap.put("cover","");
