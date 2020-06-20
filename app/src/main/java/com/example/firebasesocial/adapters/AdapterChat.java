@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -116,6 +117,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
                         dialogInterface.dismiss();
                     }
                 });
+
+                builder.create().show();
             }
         });
 
@@ -133,6 +136,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     }
 
     private void deleteMessage(int position) {
+    final String myUid =FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         String msgtimeStamp = chatList.get(position).getTimestrap();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -143,12 +147,23 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
 
-                    //remove the value from the chat
-                    ds.getRef().removeValue();
-                    //set the value to the chat was deleted message
-                    HashMap<String,Object>hashMap = new HashMap<>();
-                    hashMap.put("message","This message was deleted!");
-                    ds.getRef().updateChildren(hashMap);
+                    if(ds.child("sender").getValue().equals(myUid)){
+
+                        //remove the value from the chat..deletes the message totally with no alter message
+                        //ds.getRef().removeValue();
+
+                        //set the value to the chat was deleted message..doesnt delete the msg totally isnated keeps an alter message
+                        HashMap<String,Object>hashMap = new HashMap<>();
+                        hashMap.put("message","This message was deleted!");
+                        ds.getRef().updateChildren(hashMap);
+
+                        Toast.makeText(context,"Message was deleted!",Toast.LENGTH_SHORT).show();
+                    } else{
+
+                        Toast.makeText(context,"You can only delete your own messages",Toast.LENGTH_SHORT).show();
+
+                    }
+
                 }
             }
 
