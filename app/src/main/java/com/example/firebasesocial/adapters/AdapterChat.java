@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -119,6 +120,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     //views
     ImageView profileImage;
     TextView messageTv,timeTV, issenTV;
+    LinearLayout messageLyout; //for any click in the layout
 
     public MyHolder(@NonNull View itemView) {
         super(itemView);
@@ -127,6 +129,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         messageTv = itemView.findViewById(R.id.messageTvv);
         timeTV = itemView.findViewById(R.id.timeTv);
         issenTV = itemView.findViewById(R.id.isSeenTv);
+        messageLyout = itemView.findViewById(R.id.messageLyout);
 
     }
 }
