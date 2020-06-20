@@ -1,6 +1,7 @@
 package com.example.firebasesocial.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.ULocale;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firebasesocial.ChatActivity;
@@ -20,6 +22,12 @@ import com.example.firebasesocial.R;
 import com.example.firebasesocial.models.ModelChat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -60,7 +68,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
 
         //get the data
         String message = chatList.get(position).getMessage();
@@ -83,6 +91,33 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
            // System.out.println(dateFormat.format(cal.getTime()));
         }
 
+        //click to show dialog box
+        holder.messageLyout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete");
+                builder.setMessage("Are you sure you want to delete?");
+
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        deleteMessage(position);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.dismiss();
+                    }
+                });
+            }
+        });
+
         //set sent or delivered sattus
         if(position == chatList.size()-1){
             if(chatList.get(position).isSeen()){
@@ -94,6 +129,27 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
             holder.issenTV.setVisibility(View.GONE);
         }
+    }
+
+    private void deleteMessage(int position) {
+
+        String msgtimeStamp = chatList.get(position).getTimestrap();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        Query query = databaseReference.orderByChild("timestamp").equalTo(msgtimeStamp);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
