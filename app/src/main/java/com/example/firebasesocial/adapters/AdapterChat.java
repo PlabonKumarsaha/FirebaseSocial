@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -141,7 +142,13 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    
+
+                    //remove the value from the chat
+                    ds.getRef().removeValue();
+                    //set the value to the chat was deleted message
+                    HashMap<String,Object>hashMap = new HashMap<>();
+                    hashMap.put("message","This message was deleted!");
+                    ds.getRef().updateChildren(hashMap);
                 }
             }
 
