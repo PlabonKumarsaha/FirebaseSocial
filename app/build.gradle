@@ -31,18 +31,14 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-core:9.2.0'
 
     implementation 'com.google.firebase:firebase-database:18.0.1'
-
     //google sign in library
-
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
-
-
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -55,6 +51,9 @@ dependencies {
     implementation 'com.github.mohammadatif:CircularImageView:1.0.0'
     //circular image used
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 
 
