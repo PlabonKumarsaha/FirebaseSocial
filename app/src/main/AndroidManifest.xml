@@ -26,6 +26,34 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity" />
 
+         <service android:name=".notification.FirebaseMessaging"
+
+             android:enabled="true"
+             android:exported="true"
+             >
+
+             <intent-filter>
+
+                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+             </intent-filter>
+
+
+         </service>
+        <service android:name=".notification.FirebaseService"
+
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+
+                <action android:name="com.google.firebase.INSTANCE_ID_SERVICE" />
+            </intent-filter>
+
+        </service>
+
+
+
+
+
     </application>
 
 </manifest>

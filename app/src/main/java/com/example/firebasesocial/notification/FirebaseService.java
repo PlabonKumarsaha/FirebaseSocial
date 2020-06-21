@@ -1,15 +1,17 @@
 package com.example.firebasesocial.notification;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
-public class FirebaseService extends FirebaseInstanceIdService {
+public class FirebaseService extends FirebaseMessagingService {
 
-    @Override
+   /* @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
 
@@ -19,6 +21,14 @@ public class FirebaseService extends FirebaseInstanceIdService {
         if(user!=null){
             updateToken(tokenRefresh);
         }
+    }*/
+    public void onNewToken(@NonNull String s) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String tokenRefresh = FirebaseInstanceId.getInstance().getToken();
+        if (user != null) {
+            updateToken(tokenRefresh);
+        }
+
     }
 
     private void updateToken(String tokenRefresh) {

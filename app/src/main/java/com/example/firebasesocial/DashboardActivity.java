@@ -59,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         ft1.replace(R.id.content,fragment1,"");
         ft1.commit();
 
+        checkUserStatus();
         //update token
         updateToken(FirebaseInstanceId.getInstance().getToken());
 

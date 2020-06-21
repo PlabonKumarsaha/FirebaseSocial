@@ -11,7 +11,7 @@ public class Token {
 
         this.token = token;
     }
-    String getToken(){
+    public String getToken(){
         return token;
     }
     void setToken(String token){

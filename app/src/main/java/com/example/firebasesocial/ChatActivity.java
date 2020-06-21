@@ -17,12 +17,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.firebasesocial.adapters.AdapterChat;
 import com.example.firebasesocial.models.ModelChat;
+import com.example.firebasesocial.models.ModelUser;
+import com.example.firebasesocial.notification.APIService;
+import com.example.firebasesocial.notification.Client;
+import com.example.firebasesocial.notification.Data;
+import com.example.firebasesocial.notification.Sender;
+import com.example.firebasesocial.notification.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,13 +38,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -67,6 +74,11 @@ public class ChatActivity extends AppCompatActivity {
     String myUID;
     String hisImage;
 
+
+    //notification stuff
+    APIService apiService;
+    boolean notify = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +98,9 @@ public class ChatActivity extends AppCompatActivity {
         //recylerview properties
         chat_recylerview.setHasFixedSize(true);
         chat_recylerview.setLayoutManager(linearLayoutManager);
+
+        //create API service
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
 
         Intent intent = getIntent();
@@ -159,6 +174,7 @@ public class ChatActivity extends AppCompatActivity {
         sendImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notify = true;
                 //get text from edit text
                 String message = msgET.getText().toString().trim();
                 if(TextUtils.isEmpty(message)){
@@ -169,6 +185,8 @@ public class ChatActivity extends AppCompatActivity {
 
                     sendMessage(message);
                 }
+                //reset after sending the message
+                msgET.setText("");
             }
         });
 
@@ -287,7 +305,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void sendMessage(String message) {
+    private void sendMessage(final String message) {
 
        // String timestamp = String.valueOf(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -301,7 +319,64 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("timestamp",timestamp);
         hashMap.put("isSeen",false);
         dbRef.child("Chats").push().setValue(hashMap);
-        msgET.setText("");
+
+
+       // msgET.setText("");
+
+        String msg = message;
+        DatabaseReference database  = FirebaseDatabase.getInstance().getReference("User").child(myUID);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ModelUser modelUser = dataSnapshot.getValue(ModelUser.class);
+                if(notify){
+                    sendNotification(hisUID,modelUser.getName(),message);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendNotification(final String hisUID, final String name, final String message) {
+
+        DatabaseReference allToken = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query =allToken.orderByKey().equalTo(hisUID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(myUID,name+": "+message,"New Message",hisUID,R.drawable.ic_deafult_face);
+
+                    Sender sender = new Sender(data,token.getToken());
+                    apiService.sendNotification(sender).enqueue(new Callback<Response>() {
+                        @Override
+                        public void onResponse(Call<Response> call, Response<Response> response) {
+
+                            Toast.makeText(ChatActivity.this,response.message(),Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Response> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
