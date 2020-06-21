@@ -7,16 +7,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.FragmentTransitionSupport;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.firebasesocial.notification.Token;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -25,6 +30,8 @@ public class DashboardActivity extends AppCompatActivity {
     //TextView ProfileTv;
     ActionBar actionBar;
     FrameLayout content;
+
+    String mUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +59,25 @@ public class DashboardActivity extends AppCompatActivity {
         ft1.replace(R.id.content,fragment1,"");
         ft1.commit();
 
+        //update token
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
 
     }
 
+    @Override
+    protected void onResume() {
+        checkUserStatus();
+        super.onResume();
+    }
+
+    public void updateToken(String token){
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mtoken = new Token();
+        databaseReference.child(mUid).setValue(mtoken);
+
+    }
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -109,8 +132,15 @@ public class DashboardActivity extends AppCompatActivity {
         if(user != null){
             //user is signed in..stay here
 
+            mUid = user.getUid();
             //set email of logged in user
           //  ProfileTv.setText(user.getEmail());
+
+            //save uid of currently signed in user in shared prefernce
+            SharedPreferences sharedPreferences = getSharedPreferences("SP_USER",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Current_USER_ID",mUid);
+            editor.apply();
 
         } else{
 
