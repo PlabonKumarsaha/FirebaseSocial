@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -176,16 +177,22 @@ public class ProfileFragment extends Fragment {
                     emailTV.setText(email);
                     PhoneTV.setText(phone);
                     try {
-                        Picasso.get().load(image).into(avatar_id);
+                    //    Picasso.get().load(image).into(avatar_id);
+                       // Picasso.get().load(image).into(avatar_id);
+
+                        Glide.with(getActivity()).load(image).into(avatar_id);
                     } catch (Exception e) {
 
                         //if there is an exception while getting image,then set the defaul one
-                        Picasso.get().load(R.drawable.ic_deafult_face).into(avatar_id);
+                       // Picasso.get().load(R.drawable.ic_deafult_face).into(avatar_id);
+
+                      //  Glide.with(getActivity()).load(R.drawable.ic_deafult_face).into(avatar_id);
 
                     }
 
                     try {
-                        Picasso.get().load(cover).into(coverIV);
+                        Glide.with(getActivity()).load(cover).into(coverIV);
+//                       // Picasso.get().load(cover).into(coverIV);
                     } catch (Exception e) {
 
                         //if there is an exception while getting image,then set the defaul one

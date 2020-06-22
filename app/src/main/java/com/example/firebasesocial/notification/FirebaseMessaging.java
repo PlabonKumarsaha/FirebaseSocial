@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-@SuppressLint("MissingFirebaseInstanceTokenRefresh")
+
 public class FirebaseMessaging extends FirebaseMessagingService {
 
     @Override
