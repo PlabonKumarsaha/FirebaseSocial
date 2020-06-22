@@ -147,6 +147,7 @@ public class ProfileFragment extends Fragment {
        // grantResults = new int[10];
 
         //init pd
+        
 
         pd = new ProgressDialog(getActivity());
         /*
