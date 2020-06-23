@@ -80,10 +80,10 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
        // calendar.setTimeInMillis(Long.parseLong(timeStamp));
         //Date date = new Date(ULocale.getTime());
        // String dateTime = DateFormat.getDateInstance().format(date).toString();
-        String dateTime = java.text.DateFormat.getDateTimeInstance().format(new Date());
+       // String dateTime = java.text.DateFormat.getDateTimeInstance().format(new Date());
 
         holder.messageTv.setText(message);
-       holder.timeTV.setText(dateTime);
+       holder.timeTV.setText(timeStamp);
         try{
             Picasso.get().load(imageUrl).into(holder.profileImage);
         } catch (Exception e){
