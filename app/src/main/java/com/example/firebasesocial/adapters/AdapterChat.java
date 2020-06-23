@@ -125,8 +125,10 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         //set sent or delivered sattus
         if(position == chatList.size()-1){
             if(chatList.get(position).isSeen()){
+
                 holder.issenTV.setText("seen");
-            } else{
+            }
+            else{
                 holder.issenTV.setText("delivered");
             }
         } else{
