@@ -2,18 +2,18 @@ package com.example.firebasesocial.models;
 
 public class ModelChat {
 
-    String message,receiver,sender,timestrap;
+    String message,receiver,sender,timestamp;
     boolean isSeen;
 
     ModelChat(){
 
     }
 
-    public ModelChat(String message, String receiver, String sender, String timestrap, boolean isSeen) {
+    public ModelChat(String message, String receiver, String sender, String timestamp, boolean isSeen) {
         this.message = message;
         this.receiver = receiver;
         this.sender = sender;
-        this.timestrap = timestrap;
+        this.timestamp = timestamp;
         this.isSeen = isSeen;
     }
 
@@ -41,12 +41,12 @@ public class ModelChat {
         this.sender = sender;
     }
 
-    public String getTimestrap() {
-        return timestrap;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimestrap(String timestrap) {
-        this.timestrap = timestrap;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public boolean isSeen() {
@@ -56,6 +56,4 @@ public class ModelChat {
     public void setSeen(boolean seen) {
         isSeen = seen;
     }
-
-
 }

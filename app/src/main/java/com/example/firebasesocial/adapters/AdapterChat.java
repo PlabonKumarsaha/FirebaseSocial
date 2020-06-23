@@ -68,15 +68,15 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
 
         //get the data
         String message = chatList.get(position).getMessage();
-        String timeStamp = chatList.get(position).getTimestrap();
+        String timeStamp = chatList.get(position).getTimestamp();
         //convert the time
-        Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+     //   Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
        // calendar.setTimeInMillis(Long.parseLong(timeStamp));
         //Date date = new Date(ULocale.getTime());
        // String dateTime = DateFormat.getDateInstance().format(date).toString();
@@ -138,7 +138,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     private void deleteMessage(int position) {
     final String myUid =FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        String msgtimeStamp = chatList.get(position).getTimestrap();
+        String msgtimeStamp = chatList.get(position).getTimestamp();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
         Query query = databaseReference.orderByChild("timestamp").equalTo(msgtimeStamp);
         query.addValueEventListener(new ValueEventListener() {

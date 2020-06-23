@@ -142,7 +142,7 @@ public class ChatActivity extends AppCompatActivity {
                             // Calendar cal = Calendar.getInstance();
                             //  cal.setTimeInMillis(Long.parseLong(onlineSatus));
                             // String dateTime = android.text.format.DateFormat.getDateFormat(getApplicationContext()).toString();
-                            userStatusTV.setText("Last seen at :" +timestamp);
+                            userStatusTV.setText("Last seen at :" +onlineSatus);
 
                         }
 
@@ -216,7 +216,7 @@ public class ChatActivity extends AppCompatActivity {
         seenMessage();
     }
 
-    private void seenMessage() {
+    private void    seenMessage() {
         userReferenceForSeen = FirebaseDatabase.getInstance().getReference("Chats");
         seenListener = userReferenceForSeen.addValueEventListener(new ValueEventListener() {
             @Override
