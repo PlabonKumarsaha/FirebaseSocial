@@ -9,6 +9,7 @@ import androidx.transition.FragmentTransitionSupport;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -54,14 +55,16 @@ public class DashboardActivity extends AppCompatActivity {
 
         //this is set as the deafult fragment..will be shwn when it starts
         actionBar.setTitle("Home");
+        //update token
+        checkUserStatus();
         HomeFragment fragment1 = new HomeFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content,fragment1,"");
         ft1.commit();
 
-        checkUserStatus();
-        //update token
-        updateToken(FirebaseInstanceId.getInstance().getToken());
+
+
+        //updateToken(FirebaseInstanceId.getInstance().getToken());
 
 
     }
@@ -73,9 +76,10 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void updateToken(String token){
+        Log.d("token",token);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
-        Token mtoken = new Token();
+        Token mtoken = new Token(token);
         databaseReference.child(mUid).setValue(mtoken);
 
     }
@@ -142,6 +146,7 @@ public class DashboardActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("Current_USER_ID",mUid);
             editor.apply();
+            updateToken(FirebaseInstanceId.getInstance().getToken());
 
         } else{
 

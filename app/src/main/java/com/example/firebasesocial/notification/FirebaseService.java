@@ -26,6 +26,7 @@ public class FirebaseService extends FirebaseMessagingService {
     }*/
 
     public void onNewToken(@NonNull String s) {
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String tokenRefresh = FirebaseInstanceId.getInstance().getToken();
         Log.d("TOKEN",tokenRefresh);
@@ -38,6 +39,7 @@ public class FirebaseService extends FirebaseMessagingService {
 
     private void updateToken(String tokenRefresh) {
 
+        Log.d("TOKEN",tokenRefresh);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
         Token token = new Token(tokenRefresh);
