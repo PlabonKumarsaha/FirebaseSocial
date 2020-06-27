@@ -1,5 +1,7 @@
 package com.example.firebasesocial.notification;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +28,8 @@ public class FirebaseService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String s) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String tokenRefresh = FirebaseInstanceId.getInstance().getToken();
+        Log.d("TOKEN",tokenRefresh);
+        Log.d("USER",user.toString());
         if (user != null) {
             updateToken(tokenRefresh);
         }

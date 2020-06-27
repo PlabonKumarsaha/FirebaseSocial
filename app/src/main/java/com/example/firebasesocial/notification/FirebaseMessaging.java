@@ -34,7 +34,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         String savedCurrentuser = sharedPreferences.getString("Current_USER_ID","none");
 
         String sent = remoteMessage.getData().get("sent");
-        String user = remoteMessage.getData().get("User");
+        String user = remoteMessage.getData().get("user");
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser != null && sent.equals(firebaseUser.getUid())){
@@ -54,7 +54,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     private void sendOAndAboveNotification(RemoteMessage remoteMessage) {
 
 
-        String user = remoteMessage.getData().get("User");
+        String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
@@ -88,7 +88,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
     private void sendNormalNotification (RemoteMessage remoteMessage){
 
-        String user = remoteMessage.getData().get("User");
+        String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
